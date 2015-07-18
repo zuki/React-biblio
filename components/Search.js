@@ -21,7 +21,7 @@ class Search extends React.Component {
     return (
       <Grid>
         {errMsg}
-        <Row>
+        <Row className='text-center'>
           <SearchInput />
         </Row>
         <Row>
