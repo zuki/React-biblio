@@ -7,3 +7,6 @@ em {
 .nowrap {
   white-space: nowrap;
 }
+#query {
+  color: #000;
+}

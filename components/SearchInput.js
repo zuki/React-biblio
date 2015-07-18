@@ -1,43 +1,36 @@
-import React from 'react';
-import { Row, Col, ButtonInput } from 'react-bootstrap';
-import getItems from '../actions/getItems';
+var React = require('react');
+var Navigation = require('react-router').Navigation;
+var Row = require('react-bootstrap').Row;
+var Col = require('react-bootstrap').Col;
+var ButtonInput = require('react-bootstrap').ButtonInput;
+var getItems = require('../actions/getItems');
 
-class SearchInput extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+var SearchInput = React.createClass({
+  mixins: [Navigation],
 
-    this.state = {
-      query: props.query,
-    };
-  }
+  contextTypes: {
+    getStore: React.PropTypes.func,
+    executeAction: React.PropTypes.func
+  },
 
-  render() {
-    console.log('SearchInput#render');
-    //console.log(JSON.stringify(this.props));
+  getDefaultProps: function() {
+    return { query: '' }
+  },
 
-    return (
-      <Row>
-        <Col md={12}>
-          <form className="form-inline">
-            <input id="query" type="text" ref="blog" value={this.state.query} size="80"
-                  onChange={this.handleChange.bind(this)} placeholder="検索語を入力してください" autoFocus />&nbsp;
-            <ButtonInput type="submit" bsStyle="primary" onClick={this.handleSubmit.bind(this)}>検索</ButtonInput>
-          </form>
-        </Col>
-      </Row>
-    );
-  }
+  getInitialState: function() {
+    return { query: this.props.query };
+  },
 
-  handleChange(e) {
+  handleChange: function(e) {
     this.setState({
       query: e.target.value
     });
-  }
+  },
 
-  handleSubmit(e) {
+  handleSubmit: function(e) {
     e.preventDefault();
     if (this.state.query.length === 0) return;
-    // emit action
+
     this.context.executeAction(getItems, {
       q: this.state.query,
       page: 1
@@ -46,14 +39,32 @@ class SearchInput extends React.Component {
     this.setState({
       query: ''
     });
+
+    this.transitionTo('search');
+  },
+
+  handleClear: function(e) {
+    e.preventDefault();
+    this.setState({
+      query: ''
+    });
+  },
+
+  render: function() {
+    console.log('SearchInput#render');
+    return (
+      <Row>
+        <Col md={12}>
+          <form className="form-inline">
+            <input id="query" type="text" ref="blog" value={this.state.query} size="80"
+                  onChange={this.handleChange} placeholder="検索語を入力してください" autoFocus />&nbsp;
+            <ButtonInput type="submit" bsStyle="primary" onClick={this.handleSubmit}>検索</ButtonInput>
+            <ButtonInput type="reset" onClick={this.handleClear}>クリア</ButtonInput>
+          </form>
+        </Col>
+      </Row>
+    );
   }
-}
+});
 
-SearchInput.contextTypes = {
-  getStore: React.PropTypes.func,
-  executeAction: React.PropTypes.func
-};
-
-SearchInput.defaultProps = { query: '' };
-
-export default SearchInput;
+module.exports = SearchInput;

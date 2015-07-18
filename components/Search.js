@@ -3,8 +3,8 @@ import _ from 'lodash';
 import {connectToStores, provideContext} from 'fluxible/addons';
 import { Grid, Row, Col, Alert } from 'react-bootstrap';
 import Breadcrumbs from './Breadcrumbs';
-import SearchInput from './SearchInput';
-import SearchResult from './SearchResult';
+import SearchFacets from './SearchFacets';
+import SearchList from './SearchList';
 import SearchStore from '../stores/SearchStore';
 import SolrDocument from '../models/solr-document';
 import SolrResult from '../models/solr-result';
@@ -44,16 +44,23 @@ class Search extends React.Component {
         active: true
       });
     }
+
+    const searchResult = result ? (
+      <Row>
+        <Col md={3}>
+          <SearchFacets result={result} />
+        </Col>
+        <Col md={9}>
+          <SearchList result={result} />
+        </Col>
+      </Row>
+    ) : '';
+
     return (
       <Grid>
         <Breadcrumbs list={list} />
         {errMsg}
-        <Row className='text-center'>
-          <SearchInput />
-        </Row>
-        <Row>
-          <SearchResult result={result} />
-        </Row>
+        {searchResult}
       </Grid>
     );
   }
