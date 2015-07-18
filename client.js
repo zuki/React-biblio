@@ -6,7 +6,7 @@ import Router from 'react-router';
 import { HistoryLocation } from 'react-router';
 import navigateAction from './actions/navigation';
 import FluxibleComponent from 'fluxible/addons/FluxibleComponent';
-const bootstrapDebug = debug('Example');
+const bootstrapDebug = debug('Client');
 const dehydratedState = window.App; // Sent from the server
 
 window.React = React; // For chrome dev tool support
