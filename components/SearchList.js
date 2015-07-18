@@ -38,7 +38,7 @@ class SearchList extends React.Component {
         <Panel header={panelHeading} bsStyle='primary' className='text-center'>
           <Table responsive fill>
             <thead>
-              <tr><th>タイトル / 著者</th><th>出版事項</th><th>分類</th><th>配架場所</th></tr>
+              <tr><th>タイトル / 著者</th><th>出版事項</th><th>分類</th><th className='nowrap'>配架場所</th></tr>
             </thead>
             <tbody>
               {items}

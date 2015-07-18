@@ -4,3 +4,6 @@ em {
 .box {
   padding: 15px 15px;
 }
+.nowrap {
+  white-space: nowrap;
+}
