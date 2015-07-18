@@ -1,6 +1,7 @@
 import React from 'react';
 import {connectToStores, provideContext} from 'fluxible/addons';
 import { Grid, Row, Col, Alert } from 'react-bootstrap';
+import Breadcrumbs from './Breadcrumbs';
 import ItemBiblio from './ItemBiblio';
 import ItemMlt from './ItemMlt';
 import SolrDocument from '../models/solr-document';
@@ -22,12 +23,11 @@ class Item extends React.Component {
   }
 
   render() {
-    if (!this.props.itemState.doc) {
-      return null;
-    }
-
     console.log('Item#render');
     const doc = this.props.itemState.doc;
+    if (!doc) {
+      return null;
+    }
     const error = this.props.itemState.error;
     const emessage =
       error ? (typeof error === 'object' ? error.message : error)
@@ -35,8 +35,27 @@ class Item extends React.Component {
     const errorRow = emessage ?
       (<Row><Col md={12}><Alert bsStyle='warning'>{emessage}</Alert></Col></Row>) : '';
 
+    console.log(doc.getSolrQuery().getQuery());
+    let list = [
+      {
+        url: '/',
+        title: 'ホーム',
+        active: false
+      },
+      {
+        url: `/?q=${doc.getSolrQuery().getQuery().sq}`,
+        title: `検索: ${doc.getSolrQuery().getQuery().sq}`,
+        active: false
+      },
+      {
+        title: doc.getDocument()['title_t'],
+        active: true
+      }
+    ];
+
     return (
       <Grid>
+        <Breadcrumbs list={list} />
         {errorRow}
         <Row>
           <Col md={12}>

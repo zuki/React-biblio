@@ -10,7 +10,7 @@ class SearchItem extends React.Component {
   /*
   handleClick(item, e) {
     e.preventDefault();
-    const params = {id: item.id, query: item.cq};
+    const params = {id: item.id, query: item.sq};
     this.context.executeAction(getItem, params);
   }
   <td><a href='#' onClick={this.handleClick.bind(this, item)} dangerouslySetInnerHTML={ta} /></td>
@@ -19,7 +19,7 @@ class SearchItem extends React.Component {
   render() {
     console.log('SearchItem#render');
     const item = this.props.item;
-    const url = `/item/${item.id}?${this.props.cq}`;
+    const url = `/item/${item.id}?${this.props.sq}`;
     const ta = {__html: item.title_t + (item.author_t ? ' / ' + item.author_t : '')};
     const pub = (item.publisher_txt ? item.publisher_txt.join('; ') : '') + (item.publishDate_ss ? ', ' + item.publishDate_ss[0] : '')
 
@@ -42,7 +42,7 @@ SearchItem.contextTypes = {
 SearchItem.propTypes = {
   key: React.PropTypes.string,
   item: React.PropTypes.object,
-  cq: React.PropTypes.string
+  sq: React.PropTypes.string
 };
 
 export default SearchItem;

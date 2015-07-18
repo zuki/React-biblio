@@ -13,7 +13,7 @@ class ItemMlt extends React.Component {
     e.preventDefault();
     const params = {
       id: item.id,
-      query: item.cq
+      query: item.sq
     }
     this.context.executeAction(getItem, params);
   }
@@ -21,9 +21,9 @@ class ItemMlt extends React.Component {
   render() {
     console.log('ItemMlt#render');
     const mlt = this.props.doc.getMoreLikeThis();
-    const lines = _.map(mlt, (item) => {
+    const lines = _.map(mlt, (item, i) => {
       return (
-        <ListGroupItem className='text-left'>
+        <ListGroupItem className='text-left' key={i}>
           <a href='#' onClick={this.handleClick.bind(this, item)}>{item.text}</a>
         </ListGroupItem>
       );

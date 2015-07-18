@@ -41,7 +41,7 @@ export default class SolrDocument {
       return _.map(mlt.docs, (item) => {
         return {
           id: item.id,
-          cq: this.squery.getQuery().q,
+          sq: this.squery.getQuery().sq,
           url: '/item/' + item.id + '?' + this.squery.getItemQueryString(),
           text: item.title_t + (item.author_t ? ' / ' + item.author_t : '')
         };

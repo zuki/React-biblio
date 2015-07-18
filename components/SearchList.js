@@ -12,12 +12,12 @@ class SearchList extends React.Component {
   render() {
     console.log('SerchList#render');
     const result = this.props.result;
-    const cq = result.getSolrQuery().getQueryStringOmitField(['fq']);
+    const sq = result.getSolrQuery().getQueryStringOmitField(['fq']);
     const items = [];
     for (let item of result.getDocs()) {
       const key = item.id
       items.push(
-        <SearchItem key={key} item={item} cq={cq} />
+        <SearchItem key={key} item={item} sq={sq} />
       );
     }
 
