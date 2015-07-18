@@ -5,6 +5,7 @@ import { Grid, Row, Col, Alert } from 'react-bootstrap';
 import SearchInput from './SearchInput';
 import SearchResult from './SearchResult';
 import SearchStore from '../stores/SearchStore';
+import SolrDocument from '../models/solr-document';
 import SolrResult from '../models/solr-result';
 import SolrQuery from '../models/solr-query';
 
@@ -15,6 +16,7 @@ class Search extends React.Component {
 
   render() {
     console.log('Search#render');
+    const result = this.props.searchState.result;
     const errMsg = this.props.searchState.error ?
       (<Row><Col md={12}><Alert bsStyle='warning'>{this.props.searchState.error}</Alert></Col></Row>) : '';
 
@@ -25,7 +27,7 @@ class Search extends React.Component {
           <SearchInput />
         </Row>
         <Row>
-          <SearchResult result={this.props.searchState.result} />
+          <SearchResult result={result} />
         </Row>
       </Grid>
     );
@@ -33,7 +35,7 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-  squery: React.PropTypes.instanceOf(SolrQuery),
+  doc: React.PropTypes.instanceOf(SolrDocument),
   result: React.PropTypes.instanceOf(SolrResult),
   error: React.PropTypes.string
 };

@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
+//import getItem from '../actions/getItem';
 
 class SearchItem extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
   }
+
+  /*
+  handleClick(item, e) {
+    e.preventDefault();
+    const params = {id: item.id, query: item.cq};
+    this.context.executeAction(getItem, params);
+  }
+  <td><a href='#' onClick={this.handleClick.bind(this, item)} dangerouslySetInnerHTML={ta} /></td>
+  */
 
   render() {
     console.log('SearchItem#render');
@@ -23,6 +33,11 @@ class SearchItem extends React.Component {
     );
   }
 }
+
+SearchItem.contextTypes = {
+  getStore: React.PropTypes.func,
+  executeAction: React.PropTypes.func
+};
 
 SearchItem.propTypes = {
   key: React.PropTypes.string,

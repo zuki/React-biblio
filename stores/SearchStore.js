@@ -8,15 +8,15 @@ import SolrSearch from '../models/solr-search';
 class SearchStore extends BaseStore {
     constructor(dispatcher) {
         super(dispatcher);
-        this.squery = new SolrQuery({});
         this.result = null;
+        this.doc = null;
         this.error = '';
     }
 
     getState() {
       return {
-        squery: this.squery,
         result: this.result,
+        doc: this.doc,
         error: this.error
       };
     }
@@ -42,7 +42,7 @@ class SearchStore extends BaseStore {
       this.squery = squery;
       const solr_search = new SolrSearch(squery);
       solr_search.getItem().then((json) => {
-        this.result = new SolrDocument(json, squery);
+        this.doc = new SolrDocument(json, squery);
       }).catch((error) => {
         this.error = error;
       }).then(() => {
