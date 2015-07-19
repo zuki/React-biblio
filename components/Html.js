@@ -7,7 +7,7 @@ const Html = React.createClass({
       <html>
         <head>
             <meta charSet="utf-8" />
-            <title>{this.props.title}</title>
+            <title>書誌検索</title>
             <meta name="viewport" content="width=device-width, user-scalable=no" />
             <link rel="stylesheet" href="/public/css/bootstrap.min.css" />
             <link rel="stylesheet" href="/public/css/app.css" />
