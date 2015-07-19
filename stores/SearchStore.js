@@ -22,13 +22,10 @@ class SearchStore extends BaseStore {
     }
 
     _getItems(params) {
-      //const squery = new SolrQuery({q: params.query, page: params.page});
       const squery = new SolrQuery(params);
       this.squery = squery;
       const solr_search = new SolrSearch(squery);
       solr_search.getItems().then((json) => {
-        console.log('getItems');
-        console.log(json);
         this.result = new SolrResult(json, squery);
       }).catch((error) => {
         this.error = error;

@@ -25,7 +25,7 @@ class Search extends React.Component {
   }
 
   render() {
-    console.log('Search#render');
+    //console.log('Search#render');
     const result = this.props.searchState.result;
     const errMsg = this.props.searchState.error ?
       (<Row><Col md={12}><Alert bsStyle='warning'>{this.props.searchState.error}</Alert></Col></Row>) : '';

@@ -13,8 +13,7 @@ class Application extends React.Component {
   }
 
   render() {
-    console.log('Application#render');
-    //console.log(JSON.stringify(this.props.searchState));
+    //console.log('Application#render');
     return (
       <Grid>
         <Row>
@@ -29,18 +28,5 @@ class Application extends React.Component {
 }
 
 Application = provideContext(Application);
-
-/*
-Application.contextTypes = {
-  getStore: React.PropTypes.func,
-  executeAction: React.PropTypes.func
-};
-
-Application = connectToStores(Application, [SearchStore], function (stores, props) {
-  return {
-    searchState: stores.SearchStore.getState()
-  };
-});
-*/
 
 export default Application;

@@ -21,7 +21,7 @@ class SearchFacet extends React.Component {
   }
 
   render() {
-    console.log('SearchFacet#render');
+    //console.log('SearchFacet#render');
     const items = [];
     this.props.facet.forEach((item, idx) =>{
       if (item.specified) {

@@ -8,7 +8,7 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    console.log('Breadcrumbs#render');
+    //console.log('Breadcrumbs#render');
     const crumbs = _.map(this.props.list, (item, i) => {
       const active = item.active ? 'active' : '';
       const content = item.active

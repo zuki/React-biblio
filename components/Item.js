@@ -23,7 +23,7 @@ class Item extends React.Component {
   }
 
   render() {
-    console.log('Item#render');
+    //console.log('Item#render');
     const doc = this.props.itemState.doc;
     if (!doc) {
       return null;
@@ -35,7 +35,6 @@ class Item extends React.Component {
     const errorRow = emessage ?
       (<Row><Col md={12}><Alert bsStyle='warning'>{emessage}</Alert></Col></Row>) : '';
 
-    console.log(doc.getSolrQuery().getQuery());
     let list = [
       {
         url: '/',

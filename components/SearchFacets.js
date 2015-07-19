@@ -8,7 +8,7 @@ class SearchFacets extends React.Component {
   }
 
   render() {
-    console.log('SearchFacets#render');
+    //console.log('SearchFacets#render');
     const result = this.props.result;
     const facets = result.getFacets();
     const ftitles = result.getFacetsTitles();

@@ -10,7 +10,7 @@ class SearchList extends React.Component {
   }
 
   render() {
-    console.log('SerchList#render');
+    //console.log('SerchList#render');
     const result = this.props.result;
     const sq = result.getSolrQuery().getQueryStringOmitField(['fq']);
     const items = [];

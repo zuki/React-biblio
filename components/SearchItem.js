@@ -17,7 +17,7 @@ class SearchItem extends React.Component {
   */
 
   render() {
-    console.log('SearchItem#render');
+    //console.log('SearchItem#render');
     const item = this.props.item;
     const url = `/item/${item.id}?${this.props.sq}`;
     const ta = {__html: item.title_t + (item.author_t ? ' / ' + item.author_t : '')};

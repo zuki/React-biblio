@@ -51,7 +51,7 @@ var SearchInput = React.createClass({
   },
 
   render: function() {
-    console.log('SearchInput#render');
+    //console.log('SearchInput#render');
     return (
       <Row>
         <Col md={12}>

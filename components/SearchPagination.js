@@ -17,7 +17,7 @@ class SearchPagination extends React.Component {
   }
 
   render() {
-    console.log('Pagination#render');
+    //console.log('Pagination#render');
     const result = this.props.result;
     const current_page = result.getSolrQuery().getQuery().page;
     const page_count = result.getPageCount();

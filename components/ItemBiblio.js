@@ -9,7 +9,7 @@ class ItemBiblio extends React.Component {
   }
 
   render() {
-    console.log('ItemBiblio#render');
+    //console.log('ItemBiblio#render');
     const doc = this.props.doc.getDocument();
     const lines = _.map(doc, (value, key) => {
       return (<tr key={key}><th>{key}</th><td>{value}</td></tr>);

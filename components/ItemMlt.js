@@ -19,7 +19,7 @@ class ItemMlt extends React.Component {
   }
 
   render() {
-    console.log('ItemMlt#render');
+    //console.log('ItemMlt#render');
     const mlt = this.props.doc.getMoreLikeThis();
     const lines = _.map(mlt, (item, i) => {
       return (
