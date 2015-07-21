@@ -33,8 +33,10 @@ export default class SolrQuery {
       rows: rows
     };
     // [FIXME] superagentがArray指定による複数フィールドの設定をしてくれない
-    //return objectAssign({}, queries, this.solr_default, this.hl, this.facet, this.mlt);
-    return objectAssign({}, queries, this.solr_default, this.hl, this.mlt);
+    //   https://github.com/visionmedia/superagent/issues/670
+    // qs を利用することで回避
+    //return objectAssign({}, queries, this.solr_default, this.hl, this.mlt);
+    return objectAssign({}, queries, this.solr_default, this.hl, this.facet, this.mlt);
   }
 
   getItemQuery(){

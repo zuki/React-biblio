@@ -11,10 +11,18 @@ class SearchFacet extends React.Component {
 
   handleClick(url, e) {
     e.preventDefault();
-
     const params = _.reduce(url.split('&'), (result, query) => {
       const kv = query.split('=');
-      result[kv[0]] = kv[1];
+      if (result[kv[0]]) {
+        if (_.isArray(result[kv[0]])) {
+          result[kv[0]].push(kv[1]);
+        } else {
+          const val = result[kv[0]];
+          result[kv[0]] = [val, kv[1]];
+        }
+      } else {
+        result[kv[0]] = kv[1];
+      }
       return result;
     }, {});
     this.context.executeAction(getItems, params);

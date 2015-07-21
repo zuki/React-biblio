@@ -18,6 +18,7 @@
     "intl-messageformat": "^1.1.0",
     "lodash": "^3.10.0",
     "object-assign": "^3.0.0",
+    "qs": "^4.0.0",
     "react": "0.13.x",
     "react-bootstrap": "^0.23.3",
     "react-router": "^0.13.3",

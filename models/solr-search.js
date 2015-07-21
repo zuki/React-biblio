@@ -2,6 +2,7 @@
 import request from 'superagent';
 import _ from 'lodash';
 import SolrQuery from './solr-query';
+import Qs from 'qs';
 
 const SOLR_URL = 'http://localhost:8983/solr/biblio/select';
 
@@ -17,24 +18,21 @@ export default class SolrSearch {
     });
     /*
     // [FIXME] superagentがArray指定による複数フィールドの設定をしてくれない
+    //   https://github.com/visionmedia/superagent/issues/670
+    // qs を利用することで回避
+   */
     this.squery.setFacet({
       facet: true,
       'facet.field': ['author_s', 'callnumber-first_s', 'pubyear_is'],
       'facet.mincount': 1,
       'facet.limit': 5
     });
-    */
+
     return new Promise((resolve, reject) => {
       request(SOLR_URL)
         .set('Accept', 'application/json')
         .set('X-Requested-With', 'XMLHttpRequest')
-        .query(this.squery.getSearchQuery())
-        .query({'facet.field': 'author_s'})
-        .query({'facet.field': 'callnumber-first_s'})
-        .query({'facet.field': 'pubyear_is'})
-        .query({facet: true})
-        .query({'facet.mincount': 1})
-        .query({'facet.limit': 5})
+        .query(Qs.stringify(this.squery.getSearchQuery(), {arrayFormat: 'repeat'}))
         .end((err, data) => {
           if (err) {
             console.error(err);
