@@ -10,21 +10,29 @@ class Navigation extends React.Component {
   }
 
   handleClick(selectedKey) {
-    const lang = selectedKey === 2.2 ? 'en' : 'ja';
-    this.context.executeAction(languageAction, lang);
+    let lang = '';
+    if (selectedKey === 2.1) {
+      lang = 'ja';
+    } else if (selectedKey === 2.2) {
+      lang = 'en';
+    }
+    if (lang && lang !== this.props.lang) {
+      this.context.executeAction(languageAction, lang);
+    }
   }
 
   render() {
+    const msgs = this.props.msgs;
     return (
       <Navbar brand={this.props.msgs.site_title} inverse toggleNavKey={0}>
         <Nav right eventKey={0} onSelect={this.handleClick.bind(this)}>
           <SearchInput />
-          <DropdownButton eventKey={2} title={this.props.msgs.lang}>
+          <DropdownButton eventKey={2} title={msgs.lang}>
             <MenuItem eventKey={2.1}>
-              {this.props.msgs.ja}
+              {msgs.ja}
             </MenuItem>
             <MenuItem eventKey={2.2}>
-              {this.props.msgs.en}
+              {msgs.en}
             </MenuItem>
           </DropdownButton>
         </Nav>
@@ -39,7 +47,7 @@ Navigation.contextTypes = {
 };
 
 Navigation.propTypes = {
-  msgs: React.PropTypes.object
+  props: React.PropTypes.object
 };
 
 export default Navigation;

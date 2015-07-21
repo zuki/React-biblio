@@ -17,10 +17,10 @@ class Application extends React.Component {
     return (
       <Grid>
         <Row>
-          <Navigation msgs={this.props.appState.msgs}/>
+          <Navigation {...this.props.langState} />
         </Row>
         <Row>
-          <RouteHandler msgs={this.props.appState.msgs}/>
+          <RouteHandler {...this.props.langState}/>
         </Row>
       </Grid>
     );
@@ -40,7 +40,7 @@ Application.contextTypes = {
 
 Application = connectToStores(Application, [LanguageStore], function (stores, props) {
   return {
-    appState: stores.LanguageStore.getState()
+    langState: stores.LanguageStore.getState()
   };
 });
 
