@@ -12,6 +12,7 @@ class SearchList extends React.Component {
   render() {
     //console.log('SerchList#render');
     const result = this.props.result;
+    const msgs = this.props.msgs;
     const sq = result.getSolrQuery().getQueryStringOmitField(['fq']);
     const items = [];
     for (let item of result.getDocs()) {
@@ -31,14 +32,19 @@ class SearchList extends React.Component {
     const start = query.start + 1;
     const end   = count < (query.start + query.rows) ? count : (query.start + query.rows);
     const inputed = query.q + (query.fq ? ' AND ' + query.fq : '');
-    const panelHeading = `${start} - ${end} / ${count} (検索語: ${inputed})`;
+    const panelHeading = `${start} - ${end} / ${count} (${msgs.search_terms}: ${inputed})`;
 
     return (
       <div id="results">
         <Panel header={panelHeading} bsStyle='primary' className='text-center'>
           <Table responsive fill>
             <thead>
-              <tr><th>タイトル / 著者</th><th>出版事項</th><th>分類</th><th className='nowrap'>配架場所</th></tr>
+              <tr>
+                <th>{msgs.list_head_tr}</th>
+                <th>{msgs.list_head_publisher}</th>
+                <th>{msgs.list_head_classification}</th>
+                <th className='nowrap'>{msgs.list_head_callnumber}</th>
+              </tr>
             </thead>
             <tbody>
               {items}
@@ -54,7 +60,8 @@ class SearchList extends React.Component {
 }
 
 SearchList.propTypes = {
-  result: React.PropTypes.instanceOf(SolrResult)
+  result: React.PropTypes.instanceOf(SolrResult),
+  msgs: React.PropTypes.object
 };
 
 SearchList.contextTypes = {

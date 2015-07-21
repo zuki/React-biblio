@@ -42,7 +42,7 @@ class SearchFacet extends React.Component {
     });
 
     return (
-      <Panel collapsible defaultExpanded bsStyle='primary' header={this.props.title}>
+      <Panel collapsible defaultExpanded bsStyle='primary' header={this.props.msgs[this.props.title]}>
         <ListGroup key={this.props.key} fill>
           {items}
         </ListGroup>
@@ -54,7 +54,8 @@ class SearchFacet extends React.Component {
 SearchFacet.propTypes = {
   key: React.PropTypes.string,
   facet: React.PropTypes.array,
-  title: React.PropTypes.string
+  title: React.PropTypes.string,
+  msgs: React.PropTypes.object
 };
 
 SearchFacet.contextTypes = {

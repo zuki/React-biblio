@@ -6,6 +6,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Navigation from './Navigation';
 import ApplicationStore from '../stores/ApplicationStore';
 import SearchStore from '../stores/SearchStore';
+import LanguageStore from '../stores/LanguageStore';
 
 class Application extends React.Component {
   constructor(props, context) {
@@ -13,14 +14,13 @@ class Application extends React.Component {
   }
 
   render() {
-    //console.log('Application#render');
     return (
       <Grid>
         <Row>
-          <Navigation />
+          <Navigation msgs={this.props.appState.msgs}/>
         </Row>
         <Row>
-          <RouteHandler />
+          <RouteHandler msgs={this.props.appState.msgs}/>
         </Row>
       </Grid>
     );
@@ -28,5 +28,20 @@ class Application extends React.Component {
 }
 
 Application = provideContext(Application);
+
+Application.propTypes = {
+  msgs: React.PropTypes.object
+};
+
+Application.contextTypes = {
+  getStore: React.PropTypes.func,
+  executeAction: React.PropTypes.func
+};
+
+Application = connectToStores(Application, [LanguageStore], function (stores, props) {
+  return {
+    appState: stores.LanguageStore.getState()
+  };
+});
 
 export default Application;

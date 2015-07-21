@@ -30,7 +30,7 @@ class ItemMlt extends React.Component {
     })
 
     return (
-      <Panel collapsible defaultExpanded header='類似資料' bsStyle='success' className='text-center'>
+      <Panel collapsible defaultExpanded header={this.props.msgs.mlt_title} bsStyle='success' className='text-center'>
         <ListGroup fill>
           {lines}
         </ListGroup>

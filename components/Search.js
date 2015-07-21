@@ -33,14 +33,14 @@ class Search extends React.Component {
     let list = [
       {
         url: '/',
-        title: 'ホーム',
+        title: this.props.msgs.home,
         active: true
       }
     ];
     if (result) {
       list[0].active = false;
       list.push({
-        title: `検索: ${result.getSolrQuery().getQuery().q}`,
+        title: `${this.props.msgs.search}: ${result.getSolrQuery().getQuery().q}`,
         active: true
       });
     }
@@ -48,10 +48,10 @@ class Search extends React.Component {
     const searchResult = result ? (
       <Row>
         <Col md={3}>
-          <SearchFacets result={result} />
+          <SearchFacets result={result}  msgs={this.props.msgs} />
         </Col>
         <Col md={9}>
-          <SearchList result={result} />
+          <SearchList result={result} msgs={this.props.msgs} />
         </Col>
       </Row>
     ) : '';
@@ -69,7 +69,8 @@ class Search extends React.Component {
 Search.propTypes = {
   doc: React.PropTypes.instanceOf(SolrDocument),
   result: React.PropTypes.instanceOf(SolrResult),
-  error: React.PropTypes.string
+  error: React.PropTypes.string,
+  msgs: React.PropTypes.object
 };
 
 Search.contextTypes = {

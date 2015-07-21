@@ -38,12 +38,12 @@ class Item extends React.Component {
     let list = [
       {
         url: '/',
-        title: 'ホーム',
+        title: this.props.msgs.home,
         active: false
       },
       {
         url: `/?q=${doc.getSolrQuery().getQuery().sq}`,
-        title: `検索: ${doc.getSolrQuery().getQuery().sq}`,
+        title: `{this.props.msgs.search}: ${doc.getSolrQuery().getQuery().sq}`,
         active: false
       },
       {
@@ -63,10 +63,10 @@ class Item extends React.Component {
         </Row>
         <Row>
           <Col md={3}>
-            <ItemMlt doc={doc} />
+            <ItemMlt doc={doc} msgs={this.props.msgs} />
           </Col>
           <Col md={9}>
-            <ItemBiblio doc={doc} />
+            <ItemBiblio doc={doc} msgs={this.props.msgs} />
           </Col>
         </Row>
       </Grid>
@@ -77,7 +77,8 @@ class Item extends React.Component {
 Item.propTypes = {
   doc: React.PropTypes.instanceOf(SolrDocument),
   result: React.PropTypes.instanceOf(SolrDocument),
-  error: React.PropTypes.string
+  error: React.PropTypes.string,
+  msgs: React.PropTypes.object
 };
 
 Item.contextTypes = {
