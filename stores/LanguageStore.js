@@ -13,7 +13,6 @@ class LanguageStore extends BaseStore {
   }
 
   handleLanguage(newLang) {
-    console.log('handleLanguage called with '+newLang);
     if (! _.includes(LocaleSupport.getLocalesSupported(), newLang)) {
       return;
     }
@@ -22,7 +21,6 @@ class LanguageStore extends BaseStore {
       return;
     }
 
-    console.log('SET New Lang: '+newLang);
     this.lang = newLang;
     this.msgs = new LocaleSupport(newLang).getMessages();
     this.emitChange();
