@@ -1,8 +1,5 @@
 var React = require('react');
 var Navigation = require('react-router').Navigation;
-var Row = require('react-bootstrap').Row;
-var Col = require('react-bootstrap').Col;
-var ButtonInput = require('react-bootstrap').ButtonInput;
 var getItems = require('../actions/getItems');
 
 var SearchInput = React.createClass({
@@ -53,16 +50,14 @@ var SearchInput = React.createClass({
   render: function() {
     //console.log('SearchInput#render');
     return (
-      <Row>
-        <Col md={12}>
-          <form className="form-inline">
-            <input id="query" type="text" ref="blog" value={this.state.query} size="80"
-                  onChange={this.handleChange} placeholder="検索語を入力してください" autoFocus />&nbsp;
-            <ButtonInput type="submit" bsStyle="primary" onClick={this.handleSubmit}>検索</ButtonInput>
-            <ButtonInput type="reset" onClick={this.handleClear}>クリア</ButtonInput>
-          </form>
-        </Col>
-      </Row>
+      <form className="navbar-form navbar-left" role="search">
+        <div className="form-group">
+          <input className="form-control" id="query" type="text" ref="blog" value={this.state.query} size="80"
+                onChange={this.handleChange} placeholder="検索語を入力してください" autoFocus />&nbsp;
+        </div>
+        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>検索</button>
+        <button type="reset" className="btn btn-default" onClick={this.handleClear}>クリア</button>
+      </form>
     );
   }
 });
