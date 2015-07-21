@@ -43,7 +43,7 @@ class Item extends React.Component {
       },
       {
         url: `/?q=${doc.getSolrQuery().getQuery().sq}`,
-        title: `{this.props.msgs.search}: ${doc.getSolrQuery().getQuery().sq}`,
+        title: `${this.props.msgs.search}: ${doc.getSolrQuery().getQuery().sq}`,
         active: false
       },
       {
