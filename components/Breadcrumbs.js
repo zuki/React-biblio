@@ -1,19 +1,38 @@
-import React from 'react';
-import _ from 'lodash';
-import { Row, Colt } from 'react-bootstrap';
+var React = require('react');
+var _ = require('lodash');
+var Row = require('react-bootstrap').Row;
+var Col = require('react-bootstrap').Col;
+var Navigation = require('react-router').Navigation;
 
-class Breadcrumbs extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+var Breadcrumbs = React.createClass({
+  mixins: [Navigation],
 
-  render() {
+  contextTypes: {
+    getStore: React.PropTypes.func,
+    executeAction: React.PropTypes.func
+  },
+
+  propTypes: {
+    list: React.PropTypes.array
+  },
+
+  handleClick: function(to, q, e) {
+    e.preventDefault();
+
+    if (q) {
+      this.transitionTo(to, null, {q: q});
+    } else {
+      this.transitionTo(to);
+    }
+  },
+
+  render: function() {
     //console.log('Breadcrumbs#render');
     const crumbs = _.map(this.props.list, (item, i) => {
       const active = item.active ? 'active' : '';
       const content = item.active
         ? item.title
-        : (<a href={item.url}>{item.title}</a>);
+        : (<a href='#' onClick={this.handleClick.bind(this, item.to, item.q)}>{item.title}</a>);
       return (
         <li key={i} className={active}>
           {content}
@@ -29,10 +48,6 @@ class Breadcrumbs extends React.Component {
       </Row>
     );
   }
-}
+});
 
-Breadcrumbs.propTypes = {
-  list: React.PropTypes.array
-};
-
-export default Breadcrumbs;
+module.exports = Breadcrumbs;

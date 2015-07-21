@@ -32,7 +32,8 @@ class Search extends React.Component {
 
     let list = [
       {
-        url: '/',
+        to: 'home',
+        q: '',
         title: this.props.msgs.home,
         active: true
       }

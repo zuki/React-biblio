@@ -37,12 +37,14 @@ class Item extends React.Component {
 
     let list = [
       {
-        url: '/',
+        to: 'home',
+        q: '',
         title: this.props.msgs.home,
         active: false
       },
       {
-        url: `/?q=${doc.getSolrQuery().getQuery().sq}`,
+        to: 'search',
+        q: `${doc.getSolrQuery().getQuery().sq}`,
         title: `${this.props.msgs.search}: ${doc.getSolrQuery().getQuery().sq}`,
         active: false
       },
