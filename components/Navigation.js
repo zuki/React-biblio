@@ -24,7 +24,7 @@ class Navigation extends React.Component {
   render() {
     const msgs = this.props.msgs;
     return (
-      <Navbar brand={this.props.msgs.site_title} inverse toggleNavKey={0}>
+      <Navbar brand={this.props.msgs.site_title} inverse fixedTop toggleNavKey={0}>
         <Nav right eventKey={0} onSelect={this.handleClick.bind(this)}>
           <SearchInput />
           <DropdownButton eventKey={2} title={msgs.lang}>
