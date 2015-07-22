@@ -35,5 +35,8 @@ export default {
   'dewey-full_ss': 'NDC',
   lang: '言語',
   ja: '日本語',
-  en: 'English'
+  en: 'English',
+  error_no_hit: '該当資料はありません',
+  error_no_good: 'データの取得に失敗しました',
+  error_other: 'エラーが発生しました'
 };

@@ -35,6 +35,9 @@ export default {
   'dewey-full_ss': 'NDC',
   lang: 'Lang',
   ja: 'Japanese',
-  en: 'English'
+  en: 'English',
+  error_no_hit: 'No record.',
+  error_no_good: 'Invalid response from data source.',
+  error_other: 'Error has occured.'
 
 };

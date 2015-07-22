@@ -25,52 +25,62 @@ class Item extends React.Component {
   render() {
     //console.log('Item#render');
     const doc = this.props.itemState.doc;
-    if (!doc) {
-      return null;
-    }
     const error = this.props.itemState.error;
-    const emessage =
-      error ? (typeof error === 'object' ? error.message : error)
-            : '';
-    const errorRow = emessage ?
-      (<Row><Col md={12}><Alert bsStyle='warning'>{emessage}</Alert></Col></Row>) : '';
+    const msgs = this.props.msgs;
 
-    let list = [
-      {
-        to: 'home',
-        q: '',
-        title: this.props.msgs.home,
-        active: false
-      },
-      {
+    let errMsg = '';
+    if (error) {
+      errMsg = (typeof error === 'object') ? error.message : error;
+      errMsg = msgs[errMsg] ? msgs[errMsg] : msgs['error_other'];
+    }
+    const errMessage = errMsg ?
+      (<Row><Col md={12}><Alert bsStyle='warning'>{errMsg}</Alert></Col></Row>) : '';
+
+    let list = [{
+      to: 'home',
+      q: '',
+      title: this.props.msgs.home,
+      active: true
+    }];
+    if (doc) {
+      list[0].active = false;
+      list.push({
         to: 'search',
         q: `${doc.getSolrQuery().getQuery().sq}`,
         title: `${this.props.msgs.search}: ${doc.getSolrQuery().getQuery().sq}`,
         active: false
-      },
-      {
+      });
+      list.push({
         title: doc.getDocument()['title_t'],
         active: true
-      }
-    ];
+      });
+    }
+
+    const itemResult = (doc && !errMessage)
+      ? (
+          <div>
+            <Row>
+              <Col md={12}>
+                <h2 className='text-center'>{doc.getDocument()['title_t']}</h2>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={3}>
+                <ItemMlt doc={doc} msgs={this.props.msgs} />
+              </Col>
+              <Col md={9}>
+                <ItemBiblio doc={doc} msgs={this.props.msgs} />
+              </Col>
+            </Row>
+          </div>
+        )
+      : '';
 
     return (
       <Grid>
         <Breadcrumbs list={list} />
-        {errorRow}
-        <Row>
-          <Col md={12}>
-            <h2 className='text-center'>{doc.getDocument()['title_t']}</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={3}>
-            <ItemMlt doc={doc} msgs={this.props.msgs} />
-          </Col>
-          <Col md={9}>
-            <ItemBiblio doc={doc} msgs={this.props.msgs} />
-          </Col>
-        </Row>
+        {errMessage}
+        {itemResult}
       </Grid>
     );
   }

@@ -27,7 +27,9 @@ class SearchStore extends BaseStore {
       const solr_search = new SolrSearch(squery);
       solr_search.getItems().then((json) => {
         this.result = new SolrResult(json, squery);
+        this.error = '';
       }).catch((error) => {
+        this.result = null;
         this.error = error;
       }).then(() => {
         this.emitChange();
@@ -40,7 +42,9 @@ class SearchStore extends BaseStore {
       const solr_search = new SolrSearch(squery);
       solr_search.getItem().then((json) => {
         this.doc = new SolrDocument(json, squery);
+        this.error = '';
       }).catch((error) => {
+        this.doc = null;
         this.error = error;
       }).then(() => {
         this.emitChange();

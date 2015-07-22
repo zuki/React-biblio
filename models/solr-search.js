@@ -38,11 +38,11 @@ export default class SolrSearch {
             console.error(err);
             reject(err);
           } else if (!data.ok) {
-            reject(new Error('Response from Biblio api is not OK'));
+            reject(new Error('error_no_good'));
           } else {
             const json = JSON.parse(data.text);
             if (+json.response.numFound === 0) {
-              reject(new Error('該当資料はありません'));
+              reject(new Error('error_no_hit'));
             } else {
               resolve(json);
             }
@@ -68,13 +68,13 @@ export default class SolrSearch {
           if (err) {
             reject(err);
           } else if (!data.ok) {
-            reject(new Error('Response from Biblio api is not OK'));
+            reject(new Error('error_no_good'));
           } else {
             const json = JSON.parse(data.text);
-            if (json.response.docs[0]) {
-              resolve(json);
+            if (+json.response.numFound === 0) {
+              reject(new Error('error_no_hit'));
             } else {
-              reject(new Error('No record get'));
+              resolve(json);
             }
           }
         });

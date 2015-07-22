@@ -27,8 +27,16 @@ class Search extends React.Component {
   render() {
     //console.log('Search#render');
     const result = this.props.searchState.result;
-    const errMsg = this.props.searchState.error ?
-      (<Row><Col md={12}><Alert bsStyle='warning'>{this.props.searchState.error}</Alert></Col></Row>) : '';
+    const error = this.props.searchState.error;
+    const msgs = this.props.msgs;
+
+    let errMsg = '';
+    if (error) {
+      errMsg = (typeof error === 'object') ? error.message : error;
+      errMsg = msgs[errMsg] ? msgs[errMsg] : msgs['error_other'];
+    }
+    const errMessage = errMsg ?
+      (<Row><Col md={12}><Alert bsStyle='warning'>{errMsg}</Alert></Col></Row>) : '';
 
     let list = [
       {
@@ -41,26 +49,28 @@ class Search extends React.Component {
     if (result) {
       list[0].active = false;
       list.push({
-        title: `${this.props.msgs.search}: ${result.getSolrQuery().getQuery().q}`,
+        title: `${msgs.search}: ${result.getSolrQuery().getQuery().q}`,
         active: true
       });
     }
 
-    const searchResult = result ? (
-      <Row>
-        <Col md={3}>
-          <SearchFacets result={result}  msgs={this.props.msgs} />
-        </Col>
-        <Col md={9}>
-          <SearchList result={result} msgs={this.props.msgs} />
-        </Col>
-      </Row>
-    ) : '';
+    const searchResult = (result && !errMessage)
+      ? (
+          <Row>
+            <Col md={3}>
+              <SearchFacets result={result}  msgs={msgs} />
+            </Col>
+            <Col md={9}>
+              <SearchList result={result} msgs={msgs} />
+            </Col>
+          </Row>
+        )
+      : '';
 
     return (
       <Grid>
         <Breadcrumbs list={list} />
-        {errMsg}
+        {errMessage}
         {searchResult}
       </Grid>
     );
