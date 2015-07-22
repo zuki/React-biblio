@@ -1,38 +1,23 @@
-var React = require('react');
-var _ = require('lodash');
-var Row = require('react-bootstrap').Row;
-var Col = require('react-bootstrap').Col;
-var Navigation = require('react-router').Navigation;
+import React from 'react';
+import _ from 'lodash';
+import { Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router';
 
-var Breadcrumbs = React.createClass({
-  mixins: [Navigation],
 
-  contextTypes: {
-    getStore: React.PropTypes.func,
-    executeAction: React.PropTypes.func
-  },
+class Breadcrumbs extends React.Component {
+  constructor(props, context) {
+    super(props, context);;
+  }
 
-  propTypes: {
-    list: React.PropTypes.array
-  },
-
-  handleClick: function(to, q, e) {
-    e.preventDefault();
-
-    if (q) {
-      this.transitionTo(to, null, {q: q});
-    } else {
-      this.transitionTo(to);
-    }
-  },
-
-  render: function() {
+  render() {
     //console.log('Breadcrumbs#render');
     const crumbs = _.map(this.props.list, (item, i) => {
       const active = item.active ? 'active' : '';
       const content = item.active
         ? item.title
-        : (<a href='#' onClick={this.handleClick.bind(this, item.to, item.q)}>{item.title}</a>);
+        : item.q
+          ? (<Link to={item.to} query={{q: item.q}}>{item.title}</Link>)
+          : (<Link to={item.to}>{item.title}</Link>)
       return (
         <li key={i} className={active}>
           {content}
@@ -48,6 +33,15 @@ var Breadcrumbs = React.createClass({
       </Row>
     );
   }
-});
+}
 
-module.exports = Breadcrumbs;
+Breadcrumbs.propTypes = {
+  list: React.PropTypes.array
+};
+
+Breadcrumbs.contextTypes = {
+  getStore: React.PropTypes.func,
+  executeAction: React.PropTypes.func
+};
+
+export default Breadcrumbs;
