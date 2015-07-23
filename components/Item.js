@@ -1,7 +1,8 @@
 import React from 'react';
 import {connectToStores, provideContext} from 'fluxible/addons';
-import { Grid, Row, Col, Alert } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Breadcrumbs from './Breadcrumbs';
+import FlashMessage from './FlashMessage';
 import ItemBiblio from './ItemBiblio';
 import ItemMlt from './ItemMlt';
 import SolrDocument from '../models/solr-document';
@@ -28,14 +29,6 @@ class Item extends React.Component {
     const error = this.props.itemState.error;
     const msgs = this.props.msgs;
 
-    let errMsg = '';
-    if (error) {
-      errMsg = (typeof error === 'object') ? error.message : error;
-      errMsg = msgs[errMsg] ? msgs[errMsg] : msgs['error_other'];
-    }
-    const errMessage = errMsg ?
-      (<Row><Col md={12}><Alert bsStyle='warning'>{errMsg}</Alert></Col></Row>) : '';
-
     let list = [{
       to: 'home',
       q: '',
@@ -56,7 +49,7 @@ class Item extends React.Component {
       });
     }
 
-    const itemResult = (doc && !errMessage)
+    const itemResult = (doc && !error)
       ? (
           <div>
             <Row>
@@ -79,7 +72,7 @@ class Item extends React.Component {
     return (
       <Grid>
         <Breadcrumbs list={list} />
-        {errMessage}
+        <FlashMessage error={error} msgs={msgs} />
         {itemResult}
       </Grid>
     );
@@ -89,7 +82,7 @@ class Item extends React.Component {
 Item.propTypes = {
   doc: React.PropTypes.instanceOf(SolrDocument),
   result: React.PropTypes.instanceOf(SolrDocument),
-  error: React.PropTypes.string,
+  error: React.PropTypes.object,
   msgs: React.PropTypes.object
 };
 

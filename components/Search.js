@@ -1,8 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import {connectToStores, provideContext} from 'fluxible/addons';
-import { Grid, Row, Col, Alert } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Breadcrumbs from './Breadcrumbs';
+import FlashMessage from './FlashMessage';
 import SearchFacets from './SearchFacets';
 import SearchList from './SearchList';
 import SearchStore from '../stores/SearchStore';
@@ -30,14 +31,6 @@ class Search extends React.Component {
     const error = this.props.searchState.error;
     const msgs = this.props.msgs;
 
-    let errMsg = '';
-    if (error) {
-      errMsg = (typeof error === 'object') ? error.message : error;
-      errMsg = msgs[errMsg] ? msgs[errMsg] : msgs['error_other'];
-    }
-    const errMessage = errMsg ?
-      (<Row><Col md={12}><Alert bsStyle='warning'>{errMsg}</Alert></Col></Row>) : '';
-
     let list = [
       {
         to: 'home',
@@ -54,7 +47,7 @@ class Search extends React.Component {
       });
     }
 
-    const searchResult = (result && !errMessage)
+    const searchResult = (result && !error)
       ? (
           <Row>
             <Col md={3}>
@@ -70,7 +63,7 @@ class Search extends React.Component {
     return (
       <Grid>
         <Breadcrumbs list={list} />
-        {errMessage}
+        <FlashMessage error={error} msgs={msgs} />
         {searchResult}
       </Grid>
     );
@@ -80,7 +73,7 @@ class Search extends React.Component {
 Search.propTypes = {
   doc: React.PropTypes.instanceOf(SolrDocument),
   result: React.PropTypes.instanceOf(SolrResult),
-  error: React.PropTypes.string,
+  error: React.PropTypes.object,
   msgs: React.PropTypes.object
 };
 

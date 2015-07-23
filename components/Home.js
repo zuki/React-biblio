@@ -34,7 +34,7 @@ class Home extends React.Component {
 Home.propTypes = {
   doc: React.PropTypes.instanceOf(SolrDocument),
   result: React.PropTypes.instanceOf(SolrResult),
-  error: React.PropTypes.string,
+  error: React.PropTypes.object,
   msgs: React.PropTypes.object
 };
 
