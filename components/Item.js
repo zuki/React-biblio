@@ -31,7 +31,6 @@ class Item extends React.Component {
 
     let list = [{
       to: 'home',
-      q: '',
       title: this.props.msgs.home,
       active: true
     }];
