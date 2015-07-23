@@ -7,9 +7,7 @@ import FlashMessage from './FlashMessage';
 import SearchFacets from './SearchFacets';
 import SearchList from './SearchList';
 import SearchStore from '../stores/SearchStore';
-import SolrDocument from '../models/solr-document';
 import SolrResult from '../models/solr-result';
-import SolrQuery from '../models/solr-query';
 import getItems from '../actions/getItems';
 
 class Search extends React.Component {
@@ -27,9 +25,8 @@ class Search extends React.Component {
 
   render() {
     //console.log('Search#render');
-    const result = this.props.searchState.result;
-    const error = this.props.searchState.error;
-    const msgs = this.props.msgs;
+    const {result, error} = this.props.searchState;
+    const {msgs} = this.props;
 
     let list = [
       {
@@ -70,10 +67,9 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-  doc: React.PropTypes.instanceOf(SolrDocument),
   result: React.PropTypes.instanceOf(SolrResult),
   error: React.PropTypes.object,
-  msgs: React.PropTypes.object
+  msgs: React.PropTypes.object.isRequired
 };
 
 Search.contextTypes = {

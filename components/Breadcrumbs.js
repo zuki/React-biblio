@@ -36,7 +36,7 @@ class Breadcrumbs extends React.Component {
 }
 
 Breadcrumbs.propTypes = {
-  list: React.PropTypes.array
+  list: React.PropTypes.array.isRequired
 };
 
 Breadcrumbs.contextTypes = {

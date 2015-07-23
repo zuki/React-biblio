@@ -9,7 +9,7 @@ class SearchFacets extends React.Component {
 
   render() {
     //console.log('SearchFacets#render');
-    const result = this.props.result;
+    const {result, msgs} = this.props;
     const facets = result.getFacets();
     const ftitles = result.getFacetsTitles();
     const lists = [];
@@ -17,7 +17,7 @@ class SearchFacets extends React.Component {
       const title = ftitle.value;
       const key = ftitle.field;
       const facet = facets[key];
-      lists.push(<SearchFacet key={key} title={title} facet={facet} msgs={this.props.msgs} />);
+      lists.push(<SearchFacet key={key} title={title} facet={facet} msgs={msgs} />);
     }
 
     return (
@@ -34,8 +34,8 @@ SearchFacets.contextTypes = {
 };
 
 SearchFacets.propTypes = {
-  result: React.PropTypes.instanceOf(SolrResult),
-  msgs: React.PropTypes.object
+  result: React.PropTypes.instanceOf(SolrResult).isRequired,
+  msgs: React.PropTypes.object.isRequired
 };
 
 export default SearchFacets;

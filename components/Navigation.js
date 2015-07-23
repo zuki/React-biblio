@@ -22,7 +22,7 @@ class Navigation extends React.Component {
   }
 
   render() {
-    const msgs = this.props.msgs;
+    const {msgs} = this.props;
     return (
       <Navbar brand={this.props.msgs.site_title} inverse fixedTop toggleNavKey={0}>
         <Nav right eventKey={0} onSelect={this.handleClick.bind(this)}>
@@ -47,7 +47,7 @@ Navigation.contextTypes = {
 };
 
 Navigation.propTypes = {
-  props: React.PropTypes.object
+  props: React.PropTypes.object.isRequired
 };
 
 export default Navigation;

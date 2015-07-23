@@ -6,7 +6,6 @@ import FlashMessage from './FlashMessage';
 import ItemBiblio from './ItemBiblio';
 import ItemMlt from './ItemMlt';
 import SolrDocument from '../models/solr-document';
-import SolrQuery from '../models/solr-query';
 import SearchStore from '../stores/SearchStore';
 import getItem from '../actions/getItem';
 
@@ -25,9 +24,8 @@ class Item extends React.Component {
 
   render() {
     //console.log('Item#render');
-    const doc = this.props.itemState.doc;
-    const error = this.props.itemState.error;
-    const msgs = this.props.msgs;
+    const {doc, error} = this.props.itemState;
+    const {msgs} = this.props;
 
     let list = [{
       to: 'home',
@@ -58,10 +56,10 @@ class Item extends React.Component {
             </Row>
             <Row>
               <Col md={3}>
-                <ItemMlt doc={doc} msgs={this.props.msgs} />
+                <ItemMlt doc={doc} msgs={msgs} />
               </Col>
               <Col md={9}>
-                <ItemBiblio doc={doc} msgs={this.props.msgs} />
+                <ItemBiblio doc={doc} msgs={msgs} />
               </Col>
             </Row>
           </div>
@@ -80,9 +78,8 @@ class Item extends React.Component {
 
 Item.propTypes = {
   doc: React.PropTypes.instanceOf(SolrDocument),
-  result: React.PropTypes.instanceOf(SolrDocument),
   error: React.PropTypes.object,
-  msgs: React.PropTypes.object
+  msgs: React.PropTypes.object.isRequired
 };
 
 Item.contextTypes = {

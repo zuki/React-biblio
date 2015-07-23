@@ -10,9 +10,8 @@ class ItemBiblio extends React.Component {
 
   render() {
     //console.log('ItemBiblio#render');
-    const msgs = this.props.msgs;
-    const doc = this.props.doc.getDocument();
-    const lines = _.map(doc, (value, key) => {
+    const {msgs, doc} = this.props;
+    const lines = _.map(doc.getDocument(), (value, key) => {
       return (<tr key={key}><th>{msgs[key]}</th><td>{value}</td></tr>);
     })
 
@@ -33,7 +32,8 @@ class ItemBiblio extends React.Component {
 }
 
 ItemBiblio.propTypes = {
-  doc: React.PropTypes.instanceOf(SolrDocument)
+  doc: React.PropTypes.instanceOf(SolrDocument).isRequired,
+  msgs: React.PropTypes.object.isRequired
 };
 
 export default ItemBiblio;

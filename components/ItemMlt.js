@@ -20,7 +20,8 @@ class ItemMlt extends React.Component {
 
   render() {
     //console.log('ItemMlt#render');
-    const mlt = this.props.doc.getMoreLikeThis();
+    const {doc, msgs} = this.props;
+    const mlt = doc.getMoreLikeThis();
     const lines = _.map(mlt, (item, i) => {
       return (
         <ListGroupItem className='text-left' key={i}>
@@ -30,7 +31,7 @@ class ItemMlt extends React.Component {
     })
 
     return (
-      <Panel collapsible defaultExpanded header={this.props.msgs.mlt_title} bsStyle='success' className='text-center'>
+      <Panel collapsible defaultExpanded header={msgs.mlt_title} bsStyle='success' className='text-center'>
         <ListGroup fill>
           {lines}
         </ListGroup>
@@ -45,7 +46,8 @@ ItemMlt.contextTypes = {
 };
 
 ItemMlt.propTypes = {
-  doc: React.PropTypes.instanceOf(SolrDocument)
+  doc: React.PropTypes.instanceOf(SolrDocument).isRequired,
+  msgs: React.PropTypes.object.isRequired
 };
 
 export default ItemMlt;

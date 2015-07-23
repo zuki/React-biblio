@@ -7,10 +7,10 @@ class FlashMessage extends React.Component {
   }
 
   render() {
-    if (!this.props.error) return null;
+    const {msgs, error} = this.props;
 
-    const msgs = this.props.msgs;
-    const error = this.props.error;
+    if (!error) return null;
+
     const errMsg = msgs[error.message] ? msgs[error.message] : msgs['error_other'];
     return (
       <Row>

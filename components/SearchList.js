@@ -5,14 +5,13 @@ import SearchItem from './SearchItem';
 import SolrResult from '../models/solr-result';
 
 class SearchList extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
   }
 
   render() {
     //console.log('SerchList#render');
-    const result = this.props.result;
-    const msgs = this.props.msgs;
+    const {result, msgs} = this.props;
     const sq = result.getSolrQuery().getQueryStringOmitField(['fq']);
     const items = [];
     for (let item of result.getDocs()) {
@@ -22,11 +21,6 @@ class SearchList extends React.Component {
       );
     }
 
-    /*
-    const style = {
-      display: items.length === 0 ? 'none' : 'block'
-    };
-    */
     const query = result.getSolrQuery().getSearchQuery();
     const count = result.getNumFound();
     const start = query.start + 1;
@@ -60,13 +54,8 @@ class SearchList extends React.Component {
 }
 
 SearchList.propTypes = {
-  result: React.PropTypes.instanceOf(SolrResult),
-  msgs: React.PropTypes.object
-};
-
-SearchList.contextTypes = {
-  getStore: React.PropTypes.func,
-  executeAction: React.PropTypes.func
+  result: React.PropTypes.instanceOf(SolrResult).isRequired,
+  msgs: React.PropTypes.object.isRequired
 };
 
 export default SearchList;

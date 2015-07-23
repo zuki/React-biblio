@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
 import { Panel, ListGroup, ListGroupItem, Badge, Glyphicon } from 'react-bootstrap';
-//import { Link } from 'react-router';
 import getItems from '../actions/getItems';
 
 class SearchFacet extends React.Component {
@@ -30,18 +29,19 @@ class SearchFacet extends React.Component {
 
   render() {
     //console.log('SearchFacet#render');
+    const {key, title, facet, msgs} = this.props;
     const items = [];
-    this.props.facet.forEach((item, idx) =>{
+    _.forEach(facet, (item, idx) =>{
       if (item.specified) {
         items.push(
-          <ListGroupItem key={`${this.props.key}_${idx}`}>
+          <ListGroupItem key={`${key}_${idx}`}>
             <Glyphicon glyph='remove' />
             <a href='#' onClick={this.handleClick.bind(this, item.url)}>{item.title}</a>
           </ListGroupItem>
         );
       } else {
         items.push(
-          <ListGroupItem key={`${this.props.key}_${idx}`}>
+          <ListGroupItem key={`${key}_${idx}`}>
             <a href='#' onClick={this.handleClick.bind(this, item.url)}>{item.title}</a>
             <Badge>{item.count}</Badge>
           </ListGroupItem>
@@ -50,8 +50,8 @@ class SearchFacet extends React.Component {
     });
 
     return (
-      <Panel collapsible defaultExpanded bsStyle='primary' header={this.props.msgs[this.props.title]}>
-        <ListGroup key={this.props.key} fill>
+      <Panel collapsible defaultExpanded bsStyle='primary' header={msgs[title]}>
+        <ListGroup key={key} fill>
           {items}
         </ListGroup>
       </Panel>
@@ -60,10 +60,10 @@ class SearchFacet extends React.Component {
 }
 
 SearchFacet.propTypes = {
-  key: React.PropTypes.string,
-  facet: React.PropTypes.array,
-  title: React.PropTypes.string,
-  msgs: React.PropTypes.object
+  key: React.PropTypes.string.isRequired,
+  facet: React.PropTypes.array.isRequired,
+  title: React.PropTypes.string.isRequired,
+  msgs: React.PropTypes.object.isRequired
 };
 
 SearchFacet.contextTypes = {

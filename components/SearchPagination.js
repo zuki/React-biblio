@@ -18,7 +18,7 @@ class SearchPagination extends React.Component {
 
   render() {
     //console.log('Pagination#render');
-    const result = this.props.result;
+    const {result} = this.props;
     const current_page = result.getSolrQuery().getQuery().page;
     const page_count = result.getPageCount();
     const pages = page_count < 5 ? page_count : 5;
@@ -39,7 +39,7 @@ class SearchPagination extends React.Component {
 
 
 SearchPagination.propTypes = {
-  result: React.PropTypes.instanceOf(SolrResult)
+  result: React.PropTypes.instanceOf(SolrResult).isRequired
 };
 
 SearchPagination.contextTypes = {

@@ -1,8 +1,6 @@
 import React from 'react';
 import Breadcrumbs from './Breadcrumbs';
 import { Grid, Row, Col } from 'react-bootstrap';
-import SolrDocument from '../models/solr-document';
-import SolrResult from '../models/solr-result';
 
 class Home extends React.Component {
   constructor(props, context) {
@@ -10,9 +8,10 @@ class Home extends React.Component {
   }
 
   render() {
+    const {msgs} = this.props;
     const list = [
       {
-        title: this.props.msgs.home,
+        title: msgs.home,
         active: true
       }
     ];
@@ -20,10 +19,10 @@ class Home extends React.Component {
     return (
       <Grid>
         <Breadcrumbs list={list} />
-        <h1>{this.props.msgs.home_h1}</h1>
+        <h1>{msgs.home_h1}</h1>
         <Row>
           <Col md={10} mdOffset={1}>
-            {this.props.msgs.home_text}
+            {msgs.home_text}
           </Col>
         </Row>
       </Grid>
@@ -32,10 +31,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  doc: React.PropTypes.instanceOf(SolrDocument),
-  result: React.PropTypes.instanceOf(SolrResult),
-  error: React.PropTypes.object,
-  msgs: React.PropTypes.object
+  msgs: React.PropTypes.object.isRequired
 };
 
 export default Home;
