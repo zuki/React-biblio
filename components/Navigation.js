@@ -47,7 +47,7 @@ Navigation.contextTypes = {
 };
 
 Navigation.propTypes = {
-  props: React.PropTypes.object.isRequired
+  msgs: React.PropTypes.object.isRequired
 };
 
 export default Navigation;
