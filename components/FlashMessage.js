@@ -3,7 +3,7 @@ import { Row, Col, Alert } from 'react-bootstrap';
 
 class FlashMessage extends React.Component {
   constructor(props) {
-    super(props);;
+    super(props);
   }
 
   render() {
@@ -11,11 +11,11 @@ class FlashMessage extends React.Component {
 
     if (!error) return null;
 
-    const errMsg = msgs[error.message] ? msgs[error.message] : msgs['error_other'];
+    const errMsg = msgs[error.message] ? msgs[error.message] : msgs.error_other;
     return (
       <Row>
         <Col md={12}>
-          <Alert bsStyle='warning'>{errMsg}</Alert>
+          <Alert bsStyle="warning">{errMsg}</Alert>
         </Col>
       </Row>
     );

@@ -9,35 +9,40 @@ class ItemMlt extends React.Component {
     super(props, context);
   }
 
-  handleClick(item, e) {
-    e.preventDefault();
-    const params = {
-      id: item.id,
-      query: item.sq
-    }
-    this.context.executeAction(getItem, params);
-  }
-
   render() {
-    //console.log('ItemMlt#render');
+    // console.log('ItemMlt#render');
     const {doc, msgs} = this.props;
     const mlt = doc.getMoreLikeThis();
     const lines = _.map(mlt, (item, i) => {
       return (
-        <ListGroupItem className='text-left' key={i}>
-          <a href='#' onClick={this.handleClick.bind(this, item)}>{item.text}</a>
+        <ListGroupItem className="text-left" key={i}>
+          <a href="#" onClick={this.handleClick.bind(this, item)}>
+            {item.text}
+          </a>
         </ListGroupItem>
       );
-    })
+    });
 
     return (
-      <Panel collapsible defaultExpanded header={msgs.mlt_title} bsStyle='success' className='text-center'>
+      <Panel collapsible defaultExpanded header={msgs.mlt_title}
+        bsStyle="success" className="text-center">
         <ListGroup fill>
           {lines}
         </ListGroup>
       </Panel>
     );
   }
+
+  handleClick(item, e) {
+    e.preventDefault();
+    const params = {
+      id: item.id,
+      query: item.sq
+    };
+    this.context.executeAction(getItem, params);
+  }
+
+
 }
 
 ItemMlt.contextTypes = {

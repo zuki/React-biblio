@@ -1,4 +1,3 @@
-'use strict';
 import _ from 'lodash';
 
 const FACETS_TITLES = [
@@ -51,8 +50,8 @@ export default class SolrResult {
   }
 
   setFacets(data, squery) {
-    var facets = {};
-    var facet, items;
+    const facets = {};
+    let facet, items;
     _.forEach(data, (val, key) => {
       items = [];
       if (squery.hasFieldQuery(key)) {
@@ -64,13 +63,15 @@ export default class SolrResult {
         };
         items.push(facet);
       } else {
-        for(var i = 0; i < val.length; i += 2) {
-          const fqvalue = typeof val[i] === 'number' ? `${key}:${val[i]}` : `${key}:"${val[i]}"`;
+        for (let i = 0; i < val.length; i += 2) {
+          const fqvalue = typeof val[i] === 'number'
+            ? `${key}:${val[i]}` : `${key}:"${val[i]}"`;
           facet = {
             'title': val[i],
             'count': val[i + 1],
             'specified': false,
-            'url': squery.getQueryStringOmitField(['page', 'sq']) + '&fq=' + fqvalue
+            'url': squery.getQueryStringOmitField(['page', 'sq'])
+              + '&fq=' + fqvalue
           };
           items.push(facet);
         }
@@ -99,8 +100,8 @@ export default class SolrResult {
       end = start + 5;
     }
     for (i = start; i < end; i++) {
-      var active = (i === page ? true : false);
-      var purl = `/?${url}&page=${i}`;
+      const active = (i === page ? true : false);
+      const purl = `/?${url}&page=${i}`;
       pagination.push({url: purl, page: i, active: active});
     }
     const ret = {};

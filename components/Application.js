@@ -1,11 +1,8 @@
-'use strict';
 import React from 'react';
 import {connectToStores, provideContext} from 'fluxible/addons';
 import { RouteHandler } from 'react-router';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row } from 'react-bootstrap';
 import Navigation from './Navigation';
-import ApplicationStore from '../stores/ApplicationStore';
-import SearchStore from '../stores/SearchStore';
 import LanguageStore from '../stores/LanguageStore';
 
 class Application extends React.Component {
@@ -30,7 +27,8 @@ class Application extends React.Component {
 Application = provideContext(Application);
 
 Application.propTypes = {
-  msgs: React.PropTypes.object
+  msgs: React.PropTypes.object,
+  langState: React.PropTypes.object
 };
 
 Application.contextTypes = {
@@ -38,10 +36,11 @@ Application.contextTypes = {
   executeAction: React.PropTypes.func
 };
 
-Application = connectToStores(Application, [LanguageStore], function (stores, props) {
-  return {
-    langState: stores.LanguageStore.getState()
-  };
-});
+Application = connectToStores(Application, [LanguageStore],
+  (stores) => {
+    return {
+      langState: stores.LanguageStore.getState()
+    };
+  });
 
 export default Application;

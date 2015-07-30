@@ -1,15 +1,14 @@
-'use strict';
 import { BaseStore } from 'fluxible/addons';
 
 class ApplicationStore extends BaseStore {
-  constructor (dispatcher) {
+  constructor(dispatcher) {
     super(dispatcher);
     this.currentRoute = null;
   }
 
   handleNavigate(route) {
     if (this.currentRoute && route.path === this.currentRoute.path) {
-        return;
+      return;
     }
 
     this.currentRoute = route;

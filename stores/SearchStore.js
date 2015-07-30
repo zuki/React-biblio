@@ -7,10 +7,10 @@ import SolrSearch from '../models/solr-search';
 
 class SearchStore extends BaseStore {
     constructor(dispatcher) {
-        super(dispatcher);
-        this.result = null;
-        this.doc = null;
-        this.error = null;
+      super(dispatcher);
+      this.result = null;
+      this.doc = null;
+      this.error = null;
     }
 
     getState() {
@@ -54,8 +54,8 @@ class SearchStore extends BaseStore {
 
 SearchStore.storeName = 'SearchStore';
 SearchStore.handlers = {
-    'GET_ITEMS'    : '_getItems',
-    'GET_ITEM'     : '_getItem'
+  'GET_ITEMS': '_getItems',
+  'GET_ITEM': '_getItem'
 };
 
 export default SearchStore;

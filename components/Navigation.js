@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, DropdownButton, MenuItem } from 'react-bootstrap';
 import SearchInput from './SearchInput';
 import languageAction from '../actions/language';
 
@@ -7,6 +7,26 @@ import languageAction from '../actions/language';
 class Navigation extends React.Component {
   constructor(props, context) {
     super(props, context);
+  }
+
+  render() {
+    const {msgs} = this.props;
+    return (
+      <Navbar brand={this.props.msgs.site_title} inverse fixedTop
+          toggleNavKey={0}>
+        <Nav right eventKey={0} onSelect={this.handleClick.bind(this)}>
+          <SearchInput />
+          <DropdownButton eventKey={2} title={msgs.lang}>
+            <MenuItem eventKey={2.1}>
+              {msgs.ja}
+            </MenuItem>
+            <MenuItem eventKey={2.2}>
+              {msgs.en}
+            </MenuItem>
+          </DropdownButton>
+        </Nav>
+      </Navbar>
+    );
   }
 
   handleClick(selectedKey) {
@@ -21,24 +41,7 @@ class Navigation extends React.Component {
     }
   }
 
-  render() {
-    const {msgs} = this.props;
-    return (
-      <Navbar brand={this.props.msgs.site_title} inverse fixedTop toggleNavKey={0}>
-        <Nav right eventKey={0} onSelect={this.handleClick.bind(this)}>
-          <SearchInput />
-          <DropdownButton eventKey={2} title={msgs.lang}>
-            <MenuItem eventKey={2.1}>
-              {msgs.ja}
-            </MenuItem>
-            <MenuItem eventKey={2.2}>
-              {msgs.en}
-            </MenuItem>
-          </DropdownButton>
-        </Nav>
-      </Navbar>
-    )
-  }
+
 }
 
 Navigation.contextTypes = {
@@ -47,7 +50,8 @@ Navigation.contextTypes = {
 };
 
 Navigation.propTypes = {
-  msgs: React.PropTypes.object.isRequired
+  msgs: React.PropTypes.object.isRequired,
+  lang: React.PropTypes.string
 };
 
 export default Navigation;

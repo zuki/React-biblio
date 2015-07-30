@@ -1,11 +1,47 @@
 import React from 'react';
 import _ from 'lodash';
-import { Panel, ListGroup, ListGroupItem, Badge, Glyphicon } from 'react-bootstrap';
+import { Panel, ListGroup, ListGroupItem, Badge, Glyphicon }
+  from 'react-bootstrap';
 import getItems from '../actions/getItems';
 
 class SearchFacet extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  render() {
+    // console.log('SearchFacet#render');
+    const {key, title, facet, msgs} = this.props;
+    const items = [];
+    _.forEach(facet, (item, idx) => {
+      if (item.specified) {
+        items.push(
+          <ListGroupItem key={`${key}_${idx}`}>
+            <Glyphicon glyph="remove" />
+            <a href="#" onClick={this.handleClick.bind(this, item.url)}>
+              {item.title}
+            </a>
+          </ListGroupItem>
+        );
+      } else {
+        items.push(
+          <ListGroupItem key={`${key}_${idx}`}>
+            <a href="#" onClick={this.handleClick.bind(this, item.url)}>
+              {item.title}
+            </a>
+            <Badge>{item.count}</Badge>
+          </ListGroupItem>
+        );
+      }
+    });
+
+    return (
+      <Panel collapsible defaultExpanded bsStyle="primary" header={msgs[title]}>
+        <ListGroup key={key} fill>
+          {items}
+        </ListGroup>
+      </Panel>
+    );
   }
 
   handleClick(url, e) {
@@ -27,36 +63,6 @@ class SearchFacet extends React.Component {
     this.context.executeAction(getItems, params);
   }
 
-  render() {
-    //console.log('SearchFacet#render');
-    const {key, title, facet, msgs} = this.props;
-    const items = [];
-    _.forEach(facet, (item, idx) =>{
-      if (item.specified) {
-        items.push(
-          <ListGroupItem key={`${key}_${idx}`}>
-            <Glyphicon glyph='remove' />
-            <a href='#' onClick={this.handleClick.bind(this, item.url)}>{item.title}</a>
-          </ListGroupItem>
-        );
-      } else {
-        items.push(
-          <ListGroupItem key={`${key}_${idx}`}>
-            <a href='#' onClick={this.handleClick.bind(this, item.url)}>{item.title}</a>
-            <Badge>{item.count}</Badge>
-          </ListGroupItem>
-        );
-      }
-    });
-
-    return (
-      <Panel collapsible defaultExpanded bsStyle='primary' header={msgs[title]}>
-        <ListGroup key={key} fill>
-          {items}
-        </ListGroup>
-      </Panel>
-    );
-  }
 }
 
 SearchFacet.propTypes = {

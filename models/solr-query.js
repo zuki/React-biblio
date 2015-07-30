@@ -1,4 +1,3 @@
-'use strict';
 import _ from 'lodash';
 import objectAssign from 'object-assign';
 
@@ -22,9 +21,9 @@ export default class SolrQuery {
   }
 
   getSearchQuery() {
-    var page = +this.query.page || 1;
-    var rows = +this.query.per_page || 10;
-    var start = (page - 1) * rows;
+    const page = +this.query.page || 1;
+    const rows = +this.query.per_page || 10;
+    const start = (page - 1) * rows;
 
     const queries = {
       q: this.query.q,
@@ -35,11 +34,13 @@ export default class SolrQuery {
     // [FIXME] superagentがArray指定による複数フィールドの設定をしてくれない
     //   https://github.com/visionmedia/superagent/issues/670
     // qs を利用することで回避
-    //return objectAssign({}, queries, this.solr_default, this.hl, this.mlt);
-    return objectAssign({}, queries, this.solr_default, this.hl, this.facet, this.mlt);
+    // return objectAssign({}, queries, this.solr_default, this.hl, this.mlt);
+    return objectAssign(
+      {}, queries, this.solr_default, this.hl, this.facet, this.mlt
+    );
   }
 
-  getItemQuery(){
+  getItemQuery() {
     return objectAssign({}, {q: this.query.q}, this.solr_default, this.mlt);
   }
 
@@ -66,7 +67,7 @@ export default class SolrQuery {
   getQueryStringOmitField(omit) {
     const qs = this.getQueryStringOmit(omit);
     return qs;
-    //return this.getQueryStringOmit(omit);
+    // return this.getQueryStringOmit(omit);
   }
 
   getQueryStringOmit(omit_fields = null, omit_value = null) {
@@ -75,22 +76,22 @@ export default class SolrQuery {
         _.map(this.query, (v, k) => {
           if (omit_fields && _.includes(omit_fields, k)) {
             return null;
-          } else {
-            return _.map([].concat(v), (v2) => {
-              if (!v2 || (omit_value && _.startsWith(v2, omit_value))) {
-                return null;
-              } else {
-                return `${k}=${v2}`;
-              }
-            });
           }
+
+          return _.map([].concat(v), (v2) => {
+            if (!v2 || (omit_value && _.startsWith(v2, omit_value))) {
+              return null;
+            }
+            return `${k}=${v2}`;
+          });
         })
       )
     ).join('&');
   }
 
   getItemQueryString() {
-    return this.getQueryStringOmitField(['q', 'fq', 'sq']) + `&q=${this.query.sq}`;
+    return this.getQueryStringOmitField(['q', 'fq', 'sq'])
+      + `&q=${this.query.sq}`;
   }
 
   hasFieldQuery(field) {

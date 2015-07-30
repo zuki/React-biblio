@@ -1,6 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
-import {connectToStores, provideContext} from 'fluxible/addons';
+import { connectToStores } from 'fluxible/addons';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Breadcrumbs from './Breadcrumbs';
 import FlashMessage from './FlashMessage';
@@ -18,13 +17,13 @@ class Search extends React.Component {
       const params = {
         q: this.props.query.q,
         page: 1
-      }
+      };
       this.context.executeAction(getItems, params);
     }
   }
 
   render() {
-    //console.log('Search#render');
+    // console.log('Search#render');
     const {result, error} = this.props.searchState;
     const {msgs} = this.props;
 
@@ -47,7 +46,7 @@ class Search extends React.Component {
       ? (
           <Row>
             <Col md={3}>
-              <SearchFacets result={result}  msgs={msgs} />
+              <SearchFacets result={result} msgs={msgs} />
             </Col>
             <Col md={9}>
               <SearchList result={result} msgs={msgs} />
@@ -67,9 +66,11 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
+  searchState: React.PropTypes.object,
   result: React.PropTypes.instanceOf(SolrResult),
   error: React.PropTypes.object,
-  msgs: React.PropTypes.object.isRequired
+  msgs: React.PropTypes.object.isRequired,
+  query: React.PropTypes.object
 };
 
 Search.contextTypes = {
@@ -77,7 +78,7 @@ Search.contextTypes = {
   executeAction: React.PropTypes.func
 };
 
-Search = connectToStores(Search, [SearchStore], function (stores, props) {
+Search = connectToStores(Search, [SearchStore], (stores) => {
   return {
     searchState: stores.SearchStore.getState()
   };

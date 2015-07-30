@@ -1,4 +1,3 @@
-'use strict';
 import _ from 'lodash';
 
 export default class SolrDocument {
@@ -46,9 +45,9 @@ export default class SolrDocument {
           text: item.title_t + (item.author_t ? ' / ' + item.author_t : '')
         };
       });
-    } else {
-      return [];
     }
+
+    return [];
   }
 
   getMoreLikeThis() {

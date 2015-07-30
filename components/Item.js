@@ -1,5 +1,5 @@
 import React from 'react';
-import {connectToStores, provideContext} from 'fluxible/addons';
+import { connectToStores } from 'fluxible/addons';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Breadcrumbs from './Breadcrumbs';
 import FlashMessage from './FlashMessage';
@@ -17,13 +17,13 @@ class Item extends React.Component {
       const params = {
         id: this.props.params.id,
         query: this.props.query.q
-      }
+      };
       this.context.executeAction(getItem, params);
     }
   }
 
   render() {
-    //console.log('Item#render');
+    // console.log('Item#render');
     const {doc, error} = this.props.itemState;
     const {msgs} = this.props;
 
@@ -41,7 +41,7 @@ class Item extends React.Component {
         active: false
       });
       list.push({
-        title: doc.getDocument()['title_t'],
+        title: doc.getDocument().title_t,
         active: true
       });
     }
@@ -51,7 +51,7 @@ class Item extends React.Component {
           <div>
             <Row>
               <Col md={12}>
-                <h2 className='text-center'>{doc.getDocument()['title_t']}</h2>
+                <h2 className="text-center">{doc.getDocument().title_t}</h2>
               </Col>
             </Row>
             <Row>
@@ -77,9 +77,12 @@ class Item extends React.Component {
 }
 
 Item.propTypes = {
+  itemState: React.PropTypes.object.isRequired,
   doc: React.PropTypes.instanceOf(SolrDocument),
   error: React.PropTypes.object,
-  msgs: React.PropTypes.object.isRequired
+  msgs: React.PropTypes.object.isRequired,
+  params: React.PropTypes.object,
+  query: React.PropTypes.object
 };
 
 Item.contextTypes = {
@@ -87,7 +90,7 @@ Item.contextTypes = {
   executeAction: React.PropTypes.func
 };
 
-Item = connectToStores(Item, [SearchStore], function (stores, props) {
+Item = connectToStores(Item, [SearchStore], (stores) => {
   return {
     itemState: stores.SearchStore.getState()
   };

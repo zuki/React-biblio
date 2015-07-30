@@ -1,4 +1,3 @@
-'use strict';
 import Fluxible from 'fluxible';
 import routes from './components/Routes';
 import ApplicationStore from './stores/ApplicationStore';

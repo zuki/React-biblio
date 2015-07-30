@@ -8,16 +8,8 @@ class SearchPagination extends React.Component {
     super(props, context);
   }
 
-  handleSelect(e, selectedEvent) {
-    e.preventDefault();
-    this.context.executeAction(getItems, {
-      q: this.props.result.squery.getQuery().q,
-      page: selectedEvent.eventKey
-    });
-  }
-
   render() {
-    //console.log('Pagination#render');
+    // console.log('Pagination#render');
     const {result} = this.props;
     const current_page = result.getSolrQuery().getQuery().page;
     const page_count = result.getPageCount();
@@ -35,8 +27,16 @@ class SearchPagination extends React.Component {
         onSelect={this.handleSelect.bind(this)} />
     );
   }
-};
 
+  handleSelect(e, selectedEvent) {
+    e.preventDefault();
+    this.context.executeAction(getItems, {
+      q: this.props.result.squery.getQuery().q,
+      page: selectedEvent.eventKey
+    });
+  }
+
+}
 
 SearchPagination.propTypes = {
   result: React.PropTypes.instanceOf(SolrResult).isRequired

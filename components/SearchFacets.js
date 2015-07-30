@@ -8,7 +8,7 @@ class SearchFacets extends React.Component {
   }
 
   render() {
-    //console.log('SearchFacets#render');
+    // console.log('SearchFacets#render');
     const {result, msgs} = this.props;
     const facets = result.getFacets();
     const ftitles = result.getFacetsTitles();
@@ -17,7 +17,9 @@ class SearchFacets extends React.Component {
       const title = ftitle.value;
       const key = ftitle.field;
       const facet = facets[key];
-      lists.push(<SearchFacet key={key} title={title} facet={facet} msgs={msgs} />);
+      lists.push(
+        <SearchFacet key={key} title={title} facet={facet} msgs={msgs} />
+      );
     }
 
     return (

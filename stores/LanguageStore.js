@@ -1,10 +1,9 @@
-'use strict';
 import { BaseStore } from 'fluxible/addons';
 import LocaleSupport from '../util/locale-support';
 import _ from 'lodash';
 
 class LanguageStore extends BaseStore {
-  constructor (dispatcher) {
+  constructor(dispatcher) {
     super(dispatcher);
     this.lang = '';
     this.msgs = {};
@@ -13,7 +12,7 @@ class LanguageStore extends BaseStore {
   }
 
   handleLanguage(newLang) {
-    if (! _.includes(LocaleSupport.getLocalesSupported(), newLang)) {
+    if (!_.includes(LocaleSupport.getLocalesSupported(), newLang)) {
       return;
     }
 

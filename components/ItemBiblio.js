@@ -9,17 +9,18 @@ class ItemBiblio extends React.Component {
   }
 
   render() {
-    //console.log('ItemBiblio#render');
+    // console.log('ItemBiblio#render');
     const {msgs, doc} = this.props;
     const lines = _.map(doc.getDocument(), (value, key) => {
       return (<tr key={key}><th>{msgs[key]}</th><td>{value}</td></tr>);
-    })
+    });
 
     return (
-      <Panel collapsible defaultExpanded header={msgs.item_title} bsStyle='primary' className='text-center'>
+      <Panel collapsible defaultExpanded header={msgs.item_title}
+        bsStyle="primary" className="text-center">
         <Table fill>
           <thead>
-            <th className='nowrap'>{msgs.item_head_field}</th>
+            <th className="nowrap">{msgs.item_head_field}</th>
             <th>{msgs.item_head_value}</th>
           </thead>
           <tbody>

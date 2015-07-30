@@ -1,4 +1,4 @@
-'use strict';
+/*eslint max-len:0*/
 export default {
   site_title: 'Search Book',
   home_h1: 'Book Catalog of the Suzuki Family',

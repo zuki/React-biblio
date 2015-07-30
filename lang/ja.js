@@ -1,4 +1,4 @@
-'use strict';
+/*eslint max-len:0*/
 export default {
   site_title: '書誌検索',
   home_h1: '鈴木家蔵書目録',

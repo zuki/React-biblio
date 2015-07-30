@@ -1,7 +1,4 @@
-'use strict';
 import request from 'superagent';
-import _ from 'lodash';
-import SolrQuery from './solr-query';
 import Qs from 'qs';
 
 const SOLR_URL = 'http://localhost:8983/solr/biblio/select';
@@ -32,7 +29,9 @@ export default class SolrSearch {
       request(SOLR_URL)
         .set('Accept', 'application/json')
         .set('X-Requested-With', 'XMLHttpRequest')
-        .query(Qs.stringify(this.squery.getSearchQuery(), {arrayFormat: 'repeat'}))
+        .query(Qs.stringify(this.squery.getSearchQuery(), {
+          arrayFormat: 'repeat'
+        }))
         .end((err, data) => {
           if (err) {
             console.error(err);
@@ -58,7 +57,7 @@ export default class SolrSearch {
         'mlt.fl': ['dewey-full_ss', 'author_t'],
         'mlt.mintf': 1,
         'mlt.mindf': 1,
-        'mlt.count' :10
+        'mlt.count': 10
       });
       request('http://localhost:8983/solr/biblio/select')
         .set('Accept', 'application/json')
