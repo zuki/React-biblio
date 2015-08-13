@@ -1,52 +1,41 @@
-/*eslint no-var:0, func-names: 0*/
-var React = require('react');
-var Navigation = require('react-router').Navigation;
-var getItems = require('../actions/getItems');
+import React from 'react';
+import { Navigation } from 'react-router';
+import ReactMixin from 'react-mixin';
+import getItems from '../actions/getItems';
 
-var SearchInput = React.createClass({
-  propTypes: {
-    query: React.PropTypes.string
-  },
+class SearchInput extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      query: props.query
+    };
+  }
 
-  contextTypes: {
-    getStore: React.PropTypes.func,
-    executeAction: React.PropTypes.func
-  },
-
-  mixins: [Navigation],
-
-  getDefaultProps: function() {
-    return { query: '' };
-  },
-
-  getInitialState: function() {
-    return { query: this.props.query };
-  },
-
-  render: function() {
+  render() {
     // console.log('SearchInput#render');
     return (
       <form className="navbar-form navbar-left" role="search">
         <div className="form-group">
           <input className="form-control" id="query" type="text" ref="blog"
-            value={this.state.query} size="80" onChange={this.handleChange}
+            value={this.state.query} size="80"
+            onChange={this.handleChange.bind(this)}
             placeholder="検索語を入力してください" autoFocus />&nbsp;
         </div>
         <button type="submit" className="btn btn-primary"
-          onClick={this.handleSubmit}>検索</button>
+          onClick={this.handleSubmit.bind(this)}>検索</button>
         <button type="reset" className="btn btn-default"
-          onClick={this.handleClear}>クリア</button>
+          onClick={this.handleClear.bind(this)}>クリア</button>
       </form>
     );
-  },
+  }
 
-  handleChange: function(e) {
+  handleChange(e) {
     this.setState({
       query: e.target.value
     });
-  },
+  }
 
-  handleSubmit: function(e) {
+  handleSubmit(e) {
     e.preventDefault();
     if (this.state.query.length === 0) return;
 
@@ -60,15 +49,27 @@ var SearchInput = React.createClass({
     });
 
     this.transitionTo('search');
-  },
+  }
 
-  handleClear: function(e) {
+  handleClear(e) {
     e.preventDefault();
     this.setState({
       query: ''
     });
   }
+}
 
-});
+SearchInput.PropTypes = {
+  query: React.PropTypes.string
+};
 
-module.exports = SearchInput;
+SearchInput.contextTypes = {
+  getStore: React.PropTypes.func,
+  executeAction: React.PropTypes.func
+};
+
+SearchInput.defaultProps = { query: '' };
+
+ReactMixin.onClass(SearchInput, Navigation);
+
+export default SearchInput;

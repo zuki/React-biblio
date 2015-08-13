@@ -21,6 +21,7 @@
     "qs": "^4.0.0",
     "react": "0.13.x",
     "react-bootstrap": "^0.23.3",
+    "react-mixin": "^1.7.0",
     "react-router": "^0.13.3",
     "serialize-javascript": "^1.0.0",
     "serve-favicon": "^2.3.0",
